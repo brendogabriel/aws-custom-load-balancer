@@ -1,7 +1,7 @@
 AWS High Availability Architecture: Custom Nginx Load Balancer
 Este projeto demonstra a implementação de uma arquitetura de alta disponibilidade na AWS, utilizando instâncias EC2 e um balanceador de carga customizado.
 
-🚀 O Diferencial deste Projeto
+🚀 O Diferencial deste Projetohttps://github.com/brendogabriel/aws-custom-load-balancer/blob/main/README.md
 Diferente de implementações que utilizam apenas ferramentas nativas (clicáveis) da AWS, este projeto foi desenvolvido para contornar restrições administrativas de provisionamento de recursos (ALB) em contas novas.
 
 A solução aplicada envolveu a configuração manual de um Load Balancer via Software (Nginx), demonstrando proficiência em administração de sistemas Linux, roteamento de tráfego e resolução de problemas (troubleshooting) em ambientes de nuvem.
@@ -63,5 +63,5 @@ systemctl restart nginx
 📈 Resultados
 Através do IP público do Load Balancer, o tráfego é distribuído com sucesso. Ao atualizar a página, observa-se a alternância entre o Servidor 01 e o Servidor 02, garantindo que, caso um nó falhe, a aplicação permaneça disponível.
 
-![Teste Servidor 01](servidor1.png)
-![Teste Servidor 02](servidor2.png)
+!(servidor1.png)
+!(servidor2.png)
