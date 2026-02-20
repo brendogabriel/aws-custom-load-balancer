@@ -1,19 +1,58 @@
-# Projeto: Alta Disponibilidade com Nginx na AWS
+# Projeto: Arquitetura de Alta Disponibilidade com Nginx na AWS
 
 ## 📌 Visão Geral
-Este projeto implementa uma arquitetura web de alta disponibilidade na AWS utilizando um **Load Balancer customizado**. O objetivo é garantir a resiliência do ambiente através da distribuição de carga entre múltiplos servidores utilizando o **Nginx**.
+Este projeto demonstra a implementação de uma arquitetura de alta disponibilidade na AWS, utilizando instâncias EC2 e um balanceador de carga customizado. O objetivo principal é garantir a resiliência e a continuidade do serviço através da distribuição inteligente de tráfego.
 
-## 🛠 Tecnologias Utilizadas
+### 🚀 O Diferencial deste Projeto
+Diferente de implementações que utilizam apenas ferramentas nativas (clicáveis) da AWS, este projeto foi desenvolvido para contornar restrições administrativas de provisionamento de recursos (ALB) em contas novas. A solução aplicada envolveu a configuração manual de um Load Balancer via Software (Nginx), demonstrando proficiência em administração de sistemas Linux, roteamento de tráfego e resolução de problemas (troubleshooting) em ambientes de nuvem.
+
+## 🛠️ Tecnologias Utilizadas
 * **AWS** (EC2, Security Groups)
-* **Nginx** (Load Balancer e Proxy Reverso)
-* **Apache/Bash** (Servidor Web e Automação)
+* **Nginx** (Reverse Proxy e Load Balancer)
+* **Apache** (Servidor Web httpd)
+* **Linux/Bash** (Scripts de automação)
 
 ## ⚙️ Arquitetura
-1. **Load Balancer:** Instância EC2 dedicada rodando Nginx como ponto único de entrada.
-2. **Nodes de Backend:** Duas instâncias rodando Apache com identificadores exclusivos para validação.
-3. **Distribuição de Carga:** Configuração de upstream com algoritmo Round Robin para alternância de tráfego.
-4. **Segurança:** Security Group configurado para permitir tráfego HTTP na porta 80.
-5. **Troubleshooting:** Implementação via software para contornar restrições de provisionamento nativo (ALB).
+1. **Web-Server-01 & 02:** Duas instâncias rodando Apache com identificadores únicos para validação do balanceamento.
+2. **Custom-Load-Balancer:** Uma instância dedicada rodando Nginx, configurada para distribuir o tráfego entre os servidores de backend utilizando o algoritmo de Round Robin.
+3. **Segurança:** Configuração de Security Groups para permitir apenas tráfego HTTP na porta 80.
+4. **Resiliência:** Estrutura desenhada para manter a aplicação online mesmo em caso de falha de um dos nós de processamento.
+
+## 💻 Implementação Técnica
+
+### Configuração dos Servidores de Backend (Apache)
+```bash
+sudo su
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "<h1>Servidor 0X</h1>" > /var/www/html/index.html
+```
+
+### Configuração do Load Balancer (Nginx)
+```bash
+# Instalação do Nginx
+yum install -y nginx
+systemctl start nginx
+
+# Configuração do Upstream e Proxy
+cat <<EOF > /etc/nginx/conf.d/loadbalancer.conf
+upstream servidores_backend {
+    server 34.204.53.178:80;
+    server 44.223.48.143:80;
+}
+
+server {
+    listen 80;
+    location / {
+        proxy_pass http://servidores_backend;
+        proxy_set_header X-Real-IP \$remote_addr;
+    }
+}
+EOF
+
+systemctl restart nginx
+```
 
 ## 📸 Prova de Conceito (PoC)
 ![Teste Servidor 01](Servidor1.png)
