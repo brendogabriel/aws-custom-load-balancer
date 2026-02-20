@@ -62,3 +62,6 @@ systemctl restart nginx
 
 📈 Resultados
 Através do IP público do Load Balancer, o tráfego é distribuído com sucesso. Ao atualizar a página, observa-se a alternância entre o Servidor 01 e o Servidor 02, garantindo que, caso um nó falhe, a aplicação permaneça disponível.
+
+![Teste Servidor 01](servidor1.png)
+![Teste Servidor 02](servidor2.png)
