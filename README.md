@@ -1,4 +1,4 @@
-# Projeto: Arquitetura de Alta Disponibilidade com Nginx na AWS
+# Projeto: Balanceador de Carga e Proxy Reverso (Nginx/AWS)
 
 ## 📌 Visão Geral
 Este projeto demonstra a implementação de uma arquitetura de alta disponibilidade na AWS, utilizando instâncias EC2 e um balanceador de carga customizado. O objetivo principal é garantir a resiliência e a continuidade do serviço através da distribuição inteligente de tráfego.
